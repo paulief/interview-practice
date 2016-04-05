@@ -1,5 +1,4 @@
 function palindrome(str) {
-  // Good luck!
   var noPunc = str.replace(/[\W+_]/g, '').toLowerCase().split('');
   return palRecursive(noPunc, 0);
 }

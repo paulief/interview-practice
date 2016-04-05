@@ -9,18 +9,17 @@ class Node
 end
 
 class LinkedList
-    attr_accessor :head
+    attr_accessor :head, :tail
 
     def initialize(head)
         @head = head
+        @tail = head
     end
     
     def add(node)
-        # get last node
-        curr = get_last_node(self)
-        
-        curr.forward  = node
-        node.backward = curr
+        @head.backward = node
+        node.forward   = @head
+        @head          = node
     end
 end
 
@@ -43,9 +42,8 @@ def list_from_vals(vals)
     end
     
     # make it circular
-    last = get_last_node(list)
-    list.head.backward = last
-    last.forward = list.head
+    list.head.backward = list.tail
+    list.tail.forward  = list.head
     
     list
 end

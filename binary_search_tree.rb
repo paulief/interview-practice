@@ -10,9 +10,9 @@ class BinarySearchTree
 			node = Node.new(data)
 		else
 			if data <= node.data
-				node = insert(node.left, data)
+				node.left = insert(node.left, data)
 			else
-				node = insert(node.right, data)
+				node.right = insert(node.right, data)
 			end
 		end
 
@@ -32,6 +32,23 @@ class BinarySearchTree
 			lookup(node.right, data)
 		end
 	end
+
+	def in_order(node)
+		unless node.nil?
+			in_order(node.right)
+			puts "#{node.data} ,"
+			in_order(node.left)
+		end
+	end
+
+	def in_order_arr(node)
+		return [] if node.nil?
+		left = in_order_arr(node.left)
+		current = [node.data]
+		right = in_order_arr(node.right)
+
+		return left + current + right
+	end
 end
 
 class Node
@@ -41,3 +58,10 @@ class Node
 		@data  = data
 	end
 end
+
+bst = BinarySearchTree.new(Node.new(4))
+
+[3,2,6,5,1,9,12,8,21].each { |val| bst.insert(bst.root, val) }
+
+
+puts bst.in_order_arr(bst.root).inspect
